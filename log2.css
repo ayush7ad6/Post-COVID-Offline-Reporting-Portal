@@ -1,0 +1,64 @@
+
+
+.box{
+    width:600px;
+    height:auto;
+    background:rgba(0, 195, 255, 0.849);
+    
+     position:absolute;
+    box-sizing:border-box;
+  border-radius:25px;
+    transform:translate(75%,1%);
+    padding:58px 25px;
+    
+}
+
+.box input[type="submit"]
+{
+    height:35px;
+    border:0px;
+    background-color:#00cf11;
+    border-radius:10px;
+    font-weight:bold;
+    color:rgb(0, 37, 105);
+    cursor:pointer;
+    font-size:20px;
+}
+.box input[type="submit"]:hover
+{
+    
+    background-color: #fffc33;
+    color:rgb(255, 0, 0);
+}
+
+.boxcount{
+    width:auto;
+    height:auto;
+    
+    font-weight: bolder;
+    font-size: 17px;
+    color:rgb(0, 37, 105);
+     position:absolute;
+    box-sizing:border-box;
+  border-radius:25px;
+    transform:translate(-240%,-30%);
+    padding:58px 25px;
+    
+}
+
+.time{
+    width:auto;
+    height:auto;
+    
+    font-weight: bolder;
+    font-size: 17px;
+    color:rgb(0, 37, 105);
+     position:absolute;
+    box-sizing:border-box;
+  border-radius:25px;
+    transform:translate(180%,8%);
+    padding:58px 25px;
+    
+}
+
+

@@ -1,0 +1,185 @@
+CREATE TABLE Students_Reported
+(
+	Roll_No. int(10) NOT NULL,
+	Name varchar(255) NOT NULL,
+	Course varchar(255) NOT NULL,
+	Year int(10) NOT NULL,
+	City varchar(255) NOT NULL, 
+	State varchar(255) NOT NULL,
+	DOR varchar(255) NOT NULL,
+	COVID_POS varchar(15) NOT NULL,
+	FAM_COVID varchar(15) NOT NULL,
+	COVID_REPORT varchar(15) NOT NULL,
+	PRIMARY KEY(Roll_No)
+);
+
+ALTER TABLE students_reported ADD COVID_POS varchar(15) NOT NULL;
+ALTER TABLE students_reported ALTER COLUMN Year varchar(15) NOT NULL;
+
+
+INSERT INTO Students_Reported
+VALUES (2019221, 'Ayush Dubey', 'B.TECH', 'II', 'Agra', 'Uttar Pradesh', '07-03-21', 'YES','NO','YES'),  (2019045, 'Bhargav Gohil', 'B.TECH', 'II', 'Nasik', 'Maharashtra', '28-02-21', 'YES','NO','YES'), (2019374, 'Prashant Nepali', 'B.TECH', 'II', 'Samstipur', 'Bihar', '04-03-21', 'NO','NO','NO'), (2019226, 'Bhomik Sharma', 'B.TECH', 'II', 'Bilwara', 'Rajasthan', '07-03-21','YES','NO','NO'), (2019331, 'Sajal Gupta', 'B.TECH', 'II', 'Agra', 'Uttar Pradesh', '07-03-21','YES','YES','YES'), (2019025, 'Anjali Kumari', 'B.TECH', 'II', 'Mumbai', 'Maharashtra', '06-03-21','NO','NO','NO'), (2019076, 'Kanishka Vijayvargiya', 'B.TECH', 'II', 'Bhopal', 'Madhya Pradesh', '07-03-21','NO','NO','NO'), (2018375, 'Rahul Imaginary', 'B.TECH', 'III', 'Ranchi', 'Chattisgarh', '11-03-21','YES','YES','YES'), (2019160, 'Tanisha Pandey', 'B.TECH', 'II', 'Kota', 'Rajasthan', '07-03-21','YES','NO','YES'), (2018005, 'Abhishek Meena', 'B.TECH', 'III', 'Srinagar', 'Jammu&Kashmir', '27-03-21','YES','NO','NO');   
+
+UPDATE students_reported SET Roll_No=2018005 WHERE Roll_No=2019005
+                                 ----BTECH VIEWS----
+CREATE VIEW BTECH2019 AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='II' AND Course='B.TECH'
+ORDER BY Roll_No; 
+
+CREATE VIEW BTECH2018 AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='III'  AND Course='B.TECH'
+ORDER BY Roll_No;
+
+
+CREATE VIEW BTECH2017 AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='IV' AND Course='B.TECH'
+ORDER BY Roll_No;
+
+CREATE VIEW BTECH2020 AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='I' AND Course='B.TECH'
+ORDER BY Roll_No;
+
+
+                                 ----MTECH VIEWS----
+CREATE VIEW MTECH2020 AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='I' AND Course='M.TECH'
+ORDER BY Roll_No;
+
+
+CREATE VIEW MTECH2019 AS
+SELECT RRoll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Year='II' AND Course='M.TECH'
+ORDER BY Roll_No;
+
+                                 ----Phd VIEWS----
+CREATE VIEW PHD AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE Course='Phd'
+ORDER BY Roll_No; 
+
+
+                                 ----COVID_POS VIEWS----
+								 
+CREATE VIEW COVID_POSITIVE AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE COVID_POS = 'YES'
+ORDER BY Roll_No; 
+
+
+                                 ----COVID_REPORT VIEWS----
+								 
+CREATE VIEW COVID_REPORT AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE COVID_REPORT = 'YES'
+ORDER BY Roll_No; 
+
+
+                                 ----COVID_FAM VIEWS----
+								 
+CREATE VIEW COVID_FAM AS
+SELECT Roll_No, Name, Course, Year, City, State, DOR
+FROM Students_Reported
+WHERE FAM_COVID = 'YES'
+ORDER BY Roll_No; 
+
+
+                                -----STATS-----
+CREATE TABLE Stats
+(
+	Course varchar(255) NOT NULL,
+	Reported int(10) NOT NULL DEFAULT 0,
+	Positive int(10) NOT NULL DEFAULT 0,
+	Report int(10) NOT NULL DEFAULT 0,
+	LDOR varchar(255) NOT NULL DEFAULT '00-00-0000 00:00'
+);
+
+INSERT INTO Stats (Course)
+VALUES ("B.TECH2020"), ("B.TECH2019"), ("B.TECH2018"), ("M.TECH2020"), ("M.TECH2019"), ("Phd");
+
+INSERT INTO Stats (Course)
+VALUES ("B.TECH"), ("M.TECH");
+
+
+ALTER TABLE stats ADD PRIMARY KEY(COURSE);
+
+                                -----VALUES-----
+UPDATE Stats, Students_Reported
+SET Reported = (
+				SELECT count(Roll_No)
+				FROM Students_Reported
+				WHERE Students_Reported.Course = Stats.Course
+				);
+				
+				
+UPDATE Stats, Students_Reported
+SET Positive = (
+				SELECT count(Roll_No)
+				FROM Students_Reported
+				WHERE Students_Reported.Course = Stats.Course AND Students_Reported.COVID_POS = 'YES'
+				);
+				
+				
+UPDATE Stats, Students_Reported
+SET Report = (
+				SELECT count(Roll_No)
+				FROM Students_Reported
+				WHERE Students_Reported.Course = Stats.Course AND Students_Reported.COVID_REPORT = 'YES'
+				);
+
+UPDATE Stats, Students_Reported
+SET LDOR = (
+				SELECT max(DOR)
+				FROM Students_Reported
+				WHERE Students_Reported.Course = Stats.Course
+				);
+				
+				
+                                -----TRIGGER-----
+
+ 
+IF (NEW.) = 'not trust'
+THEN 
+    INSERT INTO booking_status (id, status_name, booking_id) VALUES(NEW.booking_number, 'Checking', NEW.booking_number);
+ELSE
+    INSERT INTO booking_status (id, status_name, booking_id) VALUES(NEW.booking_number, 'Approved', NEW.booking_number);
+ENDIF;
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+								 
+
+								 
+								 
+								 

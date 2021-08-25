@@ -1,0 +1,36 @@
+.box{
+    width:700px;
+    height:400px;
+    background:rgba(0, 195, 255, 0.849);
+    top:65%;
+    left:50%;
+    text-align: center;
+    font-weight:bold;
+     position:absolute;
+    box-sizing:border-box;
+  border-radius:25px;
+    transform:translate(-50%,-60%);
+    padding:50px 10px;
+    
+}
+
+.box button[type="submit"]
+{
+    height:40px;
+    width: 650px;
+    border:0px;
+    background-color:#00cf11;
+    border-radius:20px;
+    font-weight:bold;
+    color:rgb(0, 37, 105);
+    cursor:pointer;
+    font-size:20px;
+}
+.box button[type="submit"]:hover
+{
+    
+    background-color: #fffc33;
+    color:rgb(255, 0, 0);
+}
+
+

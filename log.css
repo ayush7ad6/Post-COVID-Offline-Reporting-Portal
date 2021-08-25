@@ -1,0 +1,40 @@
+.box{
+    width:600px;
+    height:auto;
+    background:rgba(0, 195, 255, 0.849);
+    top:119%;
+    left:50%;
+     position:absolute;
+    box-sizing:border-box;
+  border-radius:25px;
+    transform:translate(-50%,-50%);
+    padding:60px 25px;
+    
+}
+.profile{
+    
+    position:absolute;
+    border-radius:20%;
+    top:calc(-50px/2);
+    left:calc(50% - 50px);
+    overflow:hidden;
+}
+
+.box button[type="submit"]
+{
+    height:50px;
+    width: 100px;
+    border:0px;
+    background-color:#00cf11;
+    border-radius:20px;
+    font-weight:bold;
+    color:rgb(0, 37, 105);
+    cursor:pointer;
+    font-size:20px;
+}
+.box button[type="submit"]:hover
+{
+    
+    background-color: #fffc33;
+    color:rgb(255, 0, 0);
+}
